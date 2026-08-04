@@ -178,3 +178,31 @@ margin-bottom:8px;
 font-size:14px;
 color:#ddd;
 }
+#gallery{
+    padding:100px 20px;
+    text-align:center;
+}
+
+#gallery h2{
+    font-size:40px;
+    margin-bottom:40px;
+}
+
+.slider{
+    width:90%;
+    max-width:420px;
+    margin:auto;
+}
+
+.slider img{
+    width:100%;
+    border-radius:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,.4);
+    transition:1s;
+}
+
+#caption{
+    margin-top:20px;
+    color:#ddd;
+    font-size:18px;
+}
