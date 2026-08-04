@@ -151,3 +151,30 @@ footer{
     }
 
 }
+.counter{
+display:flex;
+justify-content:center;
+gap:15px;
+flex-wrap:wrap;
+margin-top:40px;
+}
+
+.box{
+width:85px;
+padding:15px;
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(12px);
+border-radius:20px;
+box-shadow:0 10px 20px rgba(0,0,0,.3);
+}
+
+.box h3{
+font-size:30px;
+color:#ff4d6d;
+margin-bottom:8px;
+}
+
+.box span{
+font-size:14px;
+color:#ddd;
+}
