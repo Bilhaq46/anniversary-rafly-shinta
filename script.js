@@ -50,27 +50,7 @@ document.getElementById("minutes").innerHTML = minutes;
 document.getElementById("seconds").innerHTML = seconds;
 
 },1000);
-const photos = [
-"assets/photos/1.jpg",
-"assets/photos/2.jpg",
-"assets/photos/3.jpg",
-"assets/photos/4.jpg",
-"assets/photos/5.jpg"
-];
 
-let current = 0;
-
-setInterval(()=>{
-
-current++;
-
-if(current >= photos.length){
-current = 0;
-}
-
-document.getElementById("slide").src = photos[current];
-
-},3500);
 const photos = [
   "assets/photos/1.jpg",
   "assets/photos/2.jpg",
