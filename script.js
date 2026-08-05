@@ -5,6 +5,48 @@ next.style.display = "none";
 
 button.onclick = () => {
 
+    music.play().catch(err => console.log(err));
+
+    button.innerHTML = "Loading Our Story ❤️";
+    button.disabled = true;
+
+    document.body.style.transition = "1s";
+    document.body.style.opacity = ".2";
+
+    setTimeout(() => {
+
+        document.body.style.opacity = "1";
+
+        next.style.display = "block";
+
+        next.scrollIntoView({
+            behavior: "smooth"
+        });
+
+        button.innerHTML = "Our Story ❤️";
+
+    }, 1200);
+
+    setInterval(() => {
+
+        current++;
+
+        if (current >= photos.length) {
+            current = 0;
+        }
+
+        slide.style.opacity = "0";
+
+        setTimeout(() => {
+            slide.src = photos[current];
+            caption.textContent = captions[current % captions.length];
+            slide.style.opacity = "1";
+        }, 500);
+
+    }, 3000);
+
+};
+
 button.innerHTML = "Loading Our Story ❤️";
 
 button.disabled = true;
@@ -93,24 +135,3 @@ let current = 0;
 const slide = document.getElementById("slide");
 const caption = document.getElementById("caption");
 const music = document.getElementById("bgMusic");
-
-document.getElementById("startBtn").addEventListener("click", () => {
-  music.play();
-
-  setInterval(() => {
-    current++;
-
-    if (current >= photos.length) {
-      current = 0;
-    }
-
-    slide.style.opacity = "0";
-
-    setTimeout(() => {
-      slide.src = photos[current];
-      caption.textContent = captions[current % captions.length];
-      slide.style.opacity = "1";
-    }, 500);
-
-  }, 3000);
-});
