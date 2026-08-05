@@ -71,3 +71,55 @@ current = 0;
 document.getElementById("slide").src = photos[current];
 
 },3500);
+const photos = [
+  "assets/photos/1.jpg",
+  "assets/photos/2.jpg",
+  "assets/photos/3.jpg",
+  "assets/photos/4.jpg",
+  "assets/photos/5.jpg",
+  "assets/photos/6.jpg",
+  "assets/photos/7.jpg",
+  "assets/photos/8.jpg",
+  "assets/photos/9.jpg",
+  "assets/photos/10.jpg",
+  "assets/photos/11.jpg",
+  "assets/photos/12.jpg",
+  "assets/photos/13.jpg",
+  "assets/photos/14.jpg",
+  "assets/photos/15.jpg",
+  "assets/photos/16.jpg",
+  "assets/photos/17.jpg",
+  "assets/photos/18.jpg",
+  "assets/photos/19.jpg",
+  "assets/photos/20.jpg",
+  "assets/photos/21.jpg",
+  "assets/photos/22.jpg",
+  "assets/photos/23.jpg",
+  "assets/photos/24.jpg",
+  "assets/photos/25.jpg",
+  "assets/photos/26.jpg"
+];
+
+let currentPhoto = 0;
+
+const slide = document.getElementById("slide");
+
+setInterval(() => {
+
+    slide.style.opacity = "0";
+
+    setTimeout(() => {
+
+        currentPhoto++;
+
+        if(currentPhoto >= photos.length){
+            currentPhoto = 0;
+        }
+
+        slide.src = photos[currentPhoto];
+
+        slide.style.opacity = "1";
+
+    },500);
+
+},3000);
