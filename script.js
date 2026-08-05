@@ -123,3 +123,8 @@ setInterval(() => {
     },500);
 
 },3000);
+const music = document.getElementById("bgMusic");
+
+document.getElementById("startBtn").addEventListener("click", () => {
+    music.play();
+});
