@@ -100,31 +100,37 @@ const photos = [
   "assets/photos/26.jpg"
 ];
 
-let currentPhoto = 0;
+const captions = [
+  "Awal dari semua cerita kita ❤️",
+  "Setiap senyummu adalah bahagiaku 😊",
+  "Terima kasih sudah selalu ada 🤍",
+  "Bersamamu semua terasa indah 🌹",
+  "Menuju selamanya bersama 💍"
+];
+
+let current = 0;
 
 const slide = document.getElementById("slide");
+const caption = document.getElementById("caption");
+const music = document.getElementById("bgMusic");
 
-setInterval(() => {
+document.getElementById("startBtn").addEventListener("click", () => {
+  music.play();
+
+  setInterval(() => {
+    current++;
+
+    if (current >= photos.length) {
+      current = 0;
+    }
 
     slide.style.opacity = "0";
 
     setTimeout(() => {
+      slide.src = photos[current];
+      caption.textContent = captions[current % captions.length];
+      slide.style.opacity = "1";
+    }, 500);
 
-        currentPhoto++;
-
-        if(currentPhoto >= photos.length){
-            currentPhoto = 0;
-        }
-
-        slide.src = photos[currentPhoto];
-
-        slide.style.opacity = "1";
-
-    },500);
-
-},3000);
-const music = document.getElementById("bgMusic");
-
-document.getElementById("startBtn").addEventListener("click", () => {
-    music.play();
+  }, 3000);
 });
