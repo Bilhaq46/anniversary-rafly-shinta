@@ -1,143 +1,111 @@
-// ===============================
-// Anniversary Rafly ❤️ Shinta
-// Final Script v1
-// ===============================
+// ===== Elemen =====
+const button = document.getElementById('startBtn');
+const next = document.getElementById('nextSection');
+const slide = document.getElementById('slide');
+const caption = document.getElementById('caption');
+const music = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
 
-// Elemen
-const button = document.getElementById("startBtn");
-const next = document.getElementById("nextSection");
+// Sembunyikan section kedua saat awal
+next.style.display = 'none';
 
-const slide = document.getElementById("slide");
-const caption = document.getElementById("caption");
-const music = document.getElementById("bgMusic");
+// ===== Countdown =====
+const anniversary = new Date('2024-08-24T00:00:00');
 
-// Sembunyikan section kedua
-next.style.display = "none";
+function updateCountdown(){
+  const now = new Date();
+  const diff = now - anniversary;
 
-// ===============================
-// Countdown
-// ===============================
+  const days = Math.floor(diff / (1000*60*60*24));
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
 
-const anniversary = new Date("2024-08-24T00:00:00");
+  document.getElementById('days').textContent = days;
+  document.getElementById('hours').textContent = hours;
+  document.getElementById('minutes').textContent = minutes;
+  document.getElementById('seconds').textContent = seconds;
+}
 
-setInterval(() => {
+updateCountdown();
+setInterval(updateCountdown,1000);
 
-    const now = new Date();
-    const diff = now - anniversary;
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-    const seconds = now.getSeconds();
-
-    document.getElementById("days").textContent = days;
-    document.getElementById("hours").textContent = hours;
-    document.getElementById("minutes").textContent = minutes;
-    document.getElementById("seconds").textContent = seconds;
-
-},1000);
-
-// ===============================
-// Gallery
-// ===============================
-
-const photos = [
-
-"assets/photos/1.jpg",
-"assets/photos/2.jpg",
-"assets/photos/3.jpg",
-"assets/photos/4.jpg",
-"assets/photos/5.jpg",
-"assets/photos/6.jpg",
-"assets/photos/7.jpg",
-"assets/photos/8.jpg",
-"assets/photos/9.jpg",
-"assets/photos/10.jpg",
-"assets/photos/11.jpg",
-"assets/photos/12.jpg",
-"assets/photos/13.jpg",
-"assets/photos/14.jpg",
-"assets/photos/15.jpg",
-"assets/photos/16.jpg",
-"assets/photos/17.jpg",
-"assets/photos/18.jpg",
-"assets/photos/19.jpg",
-"assets/photos/20.jpg",
-"assets/photos/21.jpg",
-"assets/photos/22.jpg",
-"assets/photos/23.jpg",
-"assets/photos/24.jpg",
-"assets/photos/25.jpg",
-"assets/photos/26.jpg"
-
-];
+// ===== Foto =====
+const photos = [];
+for(let i=1;i<=26;i++){
+  photos.push(`assets/photos/${i}.jpg`);
+}
 
 const captions = [
-
-"Awal dari semua cerita kita ❤️",
-"Setiap senyummu adalah bahagiaku 😊",
-"Terima kasih sudah selalu ada 🤍",
-"Bersamamu semua terasa indah 🌹",
-"Menuju selamanya bersama 💍"
-
+  'Awal dari semua cerita kita ❤️',
+  'Setiap senyummu adalah bahagiaku 😊',
+  'Terima kasih sudah selalu ada 🤍',
+  'Bersamamu semua terasa indah 🌹',
+  'Menuju selamanya bersama 💍'
 ];
 
 let current = 0;
+let slideStarted = false;
 
-// ===============================
-// Tombol Open Story
-// ===============================
+function startSlideshow(){
+  if(slideStarted) return;
+  slideStarted = true;
 
-button.onclick = () => {
+  setInterval(()=>{
+    current = (current + 1) % photos.length;
 
-    // Play Music
-    music.currentTime = 0;
+    slide.style.opacity = '0';
 
-music.play().then(() => {
-    console.log("Music playing");
-}).catch((err) => {
-    console.error(err);
-    alert("Musik gagal diputar");
-});
-    button.innerHTML = "Loading Our Story ❤️";
-    button.disabled = true;
+    setTimeout(()=>{
+      slide.src = photos[current];
+      caption.textContent = captions[current % captions.length];
+      slide.style.opacity = '1';
 
-    document.body.style.transition = "1s";
-    document.body.style.opacity = ".2";
+      slide.classList.remove('zoom');
+      void slide.offsetWidth;
+      slide.classList.add('zoom');
+    },500);
 
-    setTimeout(() => {
+  },3000);
+}
 
-        document.body.style.opacity = "1";
+// ===== Tombol Open Story =====
+button.onclick = async () => {
 
-        next.style.display = "block";
+  try{
+    await music.play();
+    musicBtn.textContent = '⏸️';
+  }catch(err){
+    console.log(err);
+  }
 
-        next.scrollIntoView({
-            behavior:"smooth"
-        });
+  button.innerHTML = 'Loading Our Story ❤️';
+  button.disabled = true;
 
-        button.innerHTML = "Our Story ❤️";
+  document.body.style.transition = '1s';
+  document.body.style.opacity = '.2';
 
-    },1200);
+  setTimeout(()=>{
+    document.body.style.opacity = '1';
+    next.style.display = 'block';
+    next.scrollIntoView({behavior:'smooth'});
+    button.innerHTML = 'Our Story ❤️';
+  },1200);
 
-    // Slideshow
-    setInterval(() => {
+  startSlideshow();
+};
 
-        current++;
-
-        if(current >= photos.length){
-            current = 0;
-        }
-
-        slide.style.opacity = "0";
-
-        setTimeout(() => {
-
-            slide.src = photos[current];
-            caption.textContent = captions[current % captions.length];
-            slide.style.opacity = "1";
-
-        },500);
-
-    },3000);
-
+// ===== Tombol Musik =====
+musicBtn.onclick = async () => {
+  if(music.paused){
+    try{
+      await music.play();
+      musicBtn.textContent = '⏸️';
+    }catch(err){
+      console.log(err);
+    }
+  }else{
+    music.pause();
+    musicBtn.textContent = '🎵';
+  }
 };
