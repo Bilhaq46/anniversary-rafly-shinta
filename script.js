@@ -91,8 +91,14 @@ let current = 0;
 button.onclick = () => {
 
     // Play Music
-    music.play().catch(err => console.log(err));
+    music.currentTime = 0;
 
+music.play().then(() => {
+    console.log("Music playing");
+}).catch((err) => {
+    console.error(err);
+    alert("Musik gagal diputar");
+});
     button.innerHTML = "Loading Our Story ❤️";
     button.disabled = true;
 
